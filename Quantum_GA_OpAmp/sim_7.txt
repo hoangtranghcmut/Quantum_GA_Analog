@@ -1,0 +1,20 @@
+  PM_7 = phaseMargin((VF("/out_7") / VF("/in_p")))
+  DC_gain_7 = value(dB20((VF("/out_7") / VF("/in_p"))) 1)
+  A_cm_7 = value(dB20((VF("/out_cmrr_7") / VF("/in_cmrr"))) 1)
+  CMRR_7 = DC_gain_7 - A_cm_7
+  UGB_7 = unityGainFreq((VF("/out_7") / VF("/in_p")))
+  Power_7 = 1.2*(OP("/I258/M4","id") + OP("/I258/M5","id"))
+  SR_7 = slewRate(VT("/out_sr_7") ymin(VT("/out_sr_7")) nil ymax(VT("/out_sr_7")) nil 10 90 nil "time")
+  PSRR_n_7 = value(dB20((VF("/VDD_psrr_n_7") / VF("/out_psrr_n_7"))) 1)
+  PSRR_p_7 = value(dB20((VF("/VDD_psrr_p_7") / VF("/out_psrr_p_7"))) 1)
+  
+  fprintf(fout "%d\n", cond_7)
+  fprintf(fout "%f\n", PM_7)
+  fprintf(fout "%f\n", DC_gain_7)
+  fprintf(fout "%f\n", CMRR_7)
+  fprintf(fout "%f\n", UGB_7*1e-6)
+  fprintf(fout "%f\n", Power_7*1e+6)
+  fprintf(fout "%f\n", PSRR_n_7)
+  fprintf(fout "%f\n", PSRR_p_7)
+  fprintf(fout "%f\n", SR_7*1e-6)
+

@@ -1,0 +1,111 @@
+
+(procedure simulate(w01_1  l01_1  w23_1  l23_1  w47_1  w5_1  l457_1  w6_1  l6_1  Cc_1
+                    w01_2  l01_2  w23_2  l23_2  w47_2  w5_2  l457_2  w6_2  l6_2  Cc_2
+                    w01_3  l01_3  w23_3  l23_3  w47_3  w5_3  l457_3  w6_3  l6_3  Cc_3
+                    w01_4  l01_4  w23_4  l23_4  w47_4  w5_4  l457_4  w6_4  l6_4  Cc_4
+                    w01_5  l01_5  w23_5  l23_5  w47_5  w5_5  l457_5  w6_5  l6_5  Cc_5
+                    w01_6  l01_6  w23_6  l23_6  w47_6  w5_6  l457_6  w6_6  l6_6  Cc_6
+                    w01_7  l01_7  w23_7  l23_7  w47_7  w5_7  l457_7  w6_7  l6_7  Cc_7
+                    w01_8  l01_8  w23_8  l23_8  w47_8  w5_8  l457_8  w6_8  l6_8  Cc_8
+                    w01_9  l01_9  w23_9  l23_9  w47_9  w5_9  l457_9  w6_9  l6_9  Cc_9
+                    w01_10 l01_10 w23_10 l23_10 w47_10 w5_10 l457_10 w6_10 l6_10 Cc_10
+                    w01_11 l01_11 w23_11 l23_11 w47_11 w5_11 l457_11 w6_11 l6_11 Cc_11
+                    w01_12 l01_12 w23_12 l23_12 w47_12 w5_12 l457_12 w6_12 l6_12 Cc_12
+                    w01_13 l01_13 w23_13 l23_13 w47_13 w5_13 l457_13 w6_13 l6_13 Cc_13
+                    w01_14 l01_14 w23_14 l23_14 w47_14 w5_14 l457_14 w6_14 l6_14 Cc_14
+                    w01_15 l01_15 w23_15 l23_15 w47_15 w5_15 l457_15 w6_15 l6_15 Cc_15
+                    w01_16 l01_16 w23_16 l23_16 w47_16 w5_16 l457_16 w6_16 l6_16 Cc_16
+)
+  analysis('dc ?saveOppoint t)
+  analysis('tran ?stop "2m"  ?errpreset "conservative")
+  analysis('ac ?start "1"  ?stop "1G")
+
+  ; Design Variables
+  load("./desVar16.txt")
+
+  envOption(
+    'firstRun  t
+    'analysisOrder  list("dc" "ac" "xf" "tran")
+  )
+  
+  option('temp  "25.0")
+  temp(25)
+  run()
+  
+  ; condition of vov, vsat, region for opamp symbol from 1 to 16 
+  load("./condition_1.txt")
+  load("./condition_2.txt")
+  load("./condition_3.txt")
+  load("./condition_4.txt")
+  load("./condition_5.txt")
+  load("./condition_6.txt")
+  load("./condition_7.txt")
+  load("./condition_8.txt")
+  load("./condition_9.txt")
+  load("./condition_10.txt")
+  load("./condition_11.txt")
+  load("./condition_12.txt")
+  load("./condition_13.txt")
+  load("./condition_14.txt")
+  load("./condition_15.txt")
+  load("./condition_16.txt")
+
+  ; simulation for opamp symbol from 1 to 16
+  load("./sim_1.txt")
+  load("./sim_2.txt")
+  load("./sim_3.txt")
+  load("./sim_4.txt")
+  load("./sim_5.txt")
+  load("./sim_6.txt")
+  load("./sim_7.txt")
+  load("./sim_8.txt")
+  load("./sim_9.txt")
+  load("./sim_10.txt")
+  load("./sim_11.txt")
+  load("./sim_12.txt")
+  load("./sim_13.txt")
+  load("./sim_14.txt")
+  load("./sim_15.txt")
+  load("./sim_16.txt")
+
+) ; close procedure
+
+
+;;;;; MAIN PROGRAM ;;;;;
+fout = outfile("./HQGA_results_opamp.txt" "w")
+;fout = outfile("./HQGA_results_opamp_test.txt" "w")
+
+fin = infile("./HQGA_params_opamp.txt")
+;fin = infile("HQGA_var_opamp_test.txt")
+
+; read design variables from HQGA_params_opamp.txt file
+load("./readVar16.txt")
+
+simulator('spectre)
+design("/home/disk/simulation/SIM_IC61/HQGA_opamp/spectre/schematic/netlist/netlist")
+resultsDir("/home/disk/simulation/SIM_IC61/HQGA_opamp/spectre/schematic")
+modelFile(
+    '("/home/hoangtrang/Thu_vien_PDK/PDK_CRN65LP_v1.7a_Official_IC61_20120914_all/PDK_CRN65LP_v1.7a_Official_IC61_20120914/tsmcN65/../models/spectre/toplevel.scs" "tt_lib")
+)
+
+simulate(w01_1  l01_1  w23_1  l23_1  w47_1   w5_1  l457_1  w6_1  l6_1  Cc_1
+         w01_2  l01_2  w23_2  l23_2  w47_2   w5_2  l457_2  w6_2  l6_2  Cc_2
+         w01_3  l01_3  w23_3  l23_3  w47_3   w5_3  l457_3  w6_3  l6_3  Cc_3
+         w01_4  l01_4  w23_4  l23_4  w47_4   w5_4  l457_4  w6_4  l6_4  Cc_4
+         w01_5  l01_5  w23_5  l23_5  w47_5   w5_5  l457_5  w6_5  l6_5  Cc_5
+         w01_6  l01_6  w23_6  l23_6  w47_6   w5_6  l457_6  w6_6  l6_6  Cc_6
+         w01_7  l01_7  w23_7  l23_7  w47_7   w5_7  l457_7  w6_7  l6_7  Cc_7
+         w01_8  l01_8  w23_8  l23_8  w47_8   w5_8  l457_8  w6_8  l6_8  Cc_8
+         w01_9  l01_9  w23_9  l23_9  w47_9   w5_9  l457_9  w6_9  l6_9  Cc_9
+         w01_10 l01_10 w23_10 l23_10 w47_10  w5_10 l457_10 w6_10 l6_10 Cc_10
+         w01_11 l01_11 w23_11 l23_11 w47_11  w5_11 l457_11 w6_11 l6_11 Cc_11
+         w01_12 l01_12 w23_12 l23_12 w47_12  w5_12 l457_12 w6_12 l6_12 Cc_12
+         w01_13 l01_13 w23_13 l23_13 w47_13  w5_13 l457_13 w6_13 l6_13 Cc_13
+         w01_14 l01_14 w23_14 l23_14 w47_14  w5_14 l457_14 w6_14 l6_14 Cc_14
+         w01_15 l01_15 w23_15 l23_15 w47_15  w5_15 l457_15 w6_15 l6_15 Cc_15
+         w01_16 l01_16 w23_16 l23_16 w47_16  w5_16 l457_16 w6_16 l6_16 Cc_16
+)
+
+close(fout)
+
+exit
